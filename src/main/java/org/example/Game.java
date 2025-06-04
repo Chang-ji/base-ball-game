@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Game {
 
     public void guess(String guessNumber) {
@@ -17,5 +20,19 @@ public class Game {
                 throw new IllegalArgumentException("숫자가 아닌 문자가 포함되어 있습니다: " + ch);
             }
         }
+
+        Set<Character> seen = new HashSet<>();
+        for (int i = 0; i < guessNumber.length(); i++) {
+            char ch = guessNumber.charAt(i);
+
+            // 중복 검사
+            if (seen.contains(ch)) {
+                throw new IllegalArgumentException("중복된 숫자가 있습니다: " + ch);
+            }
+
+            seen.add(ch);
+        }
+
+
     }
 }

@@ -25,6 +25,7 @@ class GameTest {
         assertIllegalArgument("12");
         assertIllegalArgument("1342");
         assertIllegalArgument("13s");
+        assertIllegalArgument("133");
     }
 
     private void assertIllegalArgument(String number) {
@@ -35,4 +36,6 @@ class GameTest {
 
         }
     }
+
+
 }
