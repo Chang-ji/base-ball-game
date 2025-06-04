@@ -4,12 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Game {
+    private String question;
 
-    public void guess(String guessNumber) {
+    public GuessResult guess(String guessNumber) {
         checkForNull(guessNumber);
         checkForThreeLength(guessNumber);
         checkForDigit(guessNumber);
         checkForDuplicate(guessNumber);
+
+        return runToGame(question, guessNumber);
     }
 
     private void checkForNull(String guessNumber) {
@@ -45,5 +48,29 @@ public class Game {
 
             seen.add(ch);
         }
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    private GuessResult runToGame(String rightNumber, String guessNumber) {
+        GuessResult result = new GuessResult();
+        int strike = 0;
+        int ball = 0;
+        for (int i = 0; i < 3; i++) {
+            if (guessNumber.charAt(i) == rightNumber.charAt(i)) {
+                strike++;
+            } else if (rightNumber.contains(String.valueOf(guessNumber.charAt(i)))) {
+                ball++;
+            }
+        }
+        boolean isSolved = (strike == 3);
+
+        result.setStrikes(strike);
+        result.setBalls(ball);
+        result.setSolved(isSolved);
+
+        return result;
     }
 }
